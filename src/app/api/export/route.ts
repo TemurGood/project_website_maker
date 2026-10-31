@@ -103,10 +103,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-
     }
   }
 
-  // 7. Сборка архива как Uint8Array (совместимо со всеми стандартами Web / Vercel)
+// 7. Сборка архива
   const zipBuffer = await zip.generateAsync({ type: "uint8array" });
 
-  return new Response(zipBuffer, {
+  return new Response(zipBuffer as unknown as BodyInit, {
     status: 200,
     headers: {
       "Content-Type": "application/zip",
