@@ -8,6 +8,7 @@ import {
   Download,
   LayoutDashboard
 } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
 
 export default function AdminLayout({
   children,
@@ -23,9 +24,9 @@ export default function AdminLayout({
   ];
 
   return (
-    <div className="flex h-screen bg-slate-50 text-slate-900 font-sans">
-      {/* Левая боковая панель (Sidebar) */}
-      <aside className="w-64 bg-slate-900 text-slate-200 flex flex-col justify-between p-4 shadow-xl">
+    <div className="flex h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
+      {/* Боковая панель */}
+      <aside className="w-64 bg-slate-900 text-slate-200 flex flex-col justify-between p-4 shadow-xl border-r border-slate-800">
         <div>
           <div className="flex items-center gap-2 mb-8 px-2">
             <span className="text-xl font-bold tracking-tight text-white">
@@ -53,8 +54,11 @@ export default function AdminLayout({
           </nav>
         </div>
 
-        {/* Нижние действия: Предпросмотр и Выгрузка в ZIP */}
+        {/* Нижние действия: Темная тема, Предпросмотр, Экспорт */}
         <div className="border-t border-slate-800 pt-4 space-y-2">
+          {/* Переключатель темной темы */}
+          <ThemeToggle />
+
           <Link
             href="/preview/default-site/home"
             target="_blank"
@@ -75,7 +79,7 @@ export default function AdminLayout({
         </div>
       </aside>
 
-      {/* Основная рабочая область контента */}
+      {/* Контентная часть */}
       <main className="flex-1 overflow-y-auto p-8">
         {children}
       </main>
