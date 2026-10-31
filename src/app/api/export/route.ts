@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import JSZip from "jszip";
 import { db } from "@/db";
 import { pages, pageTranslations, posts, postTranslations, staticTranslations, sites } from "@/db/schema";
-import { eq } from "drizzle-orm";
 import { renderBlockToHtml, buildFullPageHtml } from "@/lib/htmlGenerator";
 import { EditorBlock } from "@/types/editor";
 
@@ -104,10 +103,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-
     }
   }
 
-  // 7. Сборка архива
-  const zipBuffer = await zip.generateAsync({ type: "nodebuffer" });
+  // 7. Сборка архива как Uint8Array (совместимо со всеми стандартами Web / Vercel)
+  const zipBuffer = await zip.generateAsync({ type: "uint8array" });
 
-  return new NextResponse(zipBuffer, {
+  return new Response(zipBuffer, {
     status: 200,
     headers: {
       "Content-Type": "application/zip",
